@@ -5,56 +5,61 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Review Report | NCRP</title>
 <link rel="stylesheet" href="../../style.css">
-<style>.report-header{display:flex;align-items:center;justify-content:space-between;padding:16px 42px;border-bottom:2px solid var(--ink)}.report-header a{font-weight:700}.report-header-actions{display:flex;gap:28px;align-items:center}.report-header button{border:0;background:none;padding:0;font-weight:700}.report-header button:disabled{color:#9aa7af;cursor:not-allowed}.report-footer{display:block!important;text-align:center;border-top:2px solid var(--ink);padding:20px 28px!important}.help-title{font-weight:700;font-size:18px;margin-bottom:12px}.footer-brand{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;font-weight:700}.report-footer .footer-credit{border:0;padding-top:12px;margin-top:12px}.flow-next[aria-disabled="true"]{opacity:.45;cursor:not-allowed}@media(max-width:650px){.report-header{padding:16px 22px}.report-header-actions{gap:16px}.report-footer .footer-brand{font-size:14px}}</style>
+<style>
+.report-header{display:flex;align-items:center;justify-content:space-between;padding:16px 42px;border-bottom:2px solid var(--ink)}
+.report-header a{font-weight:700}.report-header-actions{display:flex;gap:28px;align-items:center}.report-header button{border:0;background:none;padding:0;font-weight:700}.report-header button:disabled{color:#9aa7af;cursor:not-allowed}
+.report-footer{display:block!important;text-align:center;border-top:2px solid var(--ink);padding:20px 28px!important}.help-title{font-weight:700;font-size:18px;margin-bottom:12px}.footer-brand{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;font-weight:700}.report-footer .footer-credit{border:0;padding-top:12px;margin-top:12px}
+.review-list{overflow:hidden}.review-row{transition:background .2s ease}.review-row.is-editing{padding-left:16px;background:#f1f8fc;box-shadow:inset 3px 0 0 var(--blue)}.review-row.is-editing>span{width:100%}.review-row.is-editing .review-display{display:none}.review-editor{display:none;width:100%;min-width:0;padding:7px 0}.review-row.is-editing .review-editor{display:block}.review-editor label{display:block;margin:0 0 10px;color:var(--blue-dark);font-weight:700}.review-editor input,.review-editor select,.review-editor textarea{width:100%;margin-top:6px;padding:10px 12px;border:1px solid #9eb8c9;border-radius:7px;background:#fff;font:inherit;color:var(--ink)}.review-editor textarea{min-height:100px;resize:vertical}.editor-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:12px}.editor-actions button{padding:7px 13px;font-size:13px}.editor-error{display:none;margin:7px 0 0;color:var(--danger);font-size:13px;font-weight:700}.editor-error.visible{display:block}.review-row.is-editing>.button.edit-button{display:none}.review-display strong{color:var(--ink)}
+.submit-confirmation{display:flex;align-items:center;gap:8px;margin-top:24px}.submit-confirmation input{width:auto;margin:0}.flow-next[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
+@media(max-width:650px){.report-header{padding:16px 22px}.report-header-actions{gap:16px}.report-footer .footer-brand{font-size:14px}.editor-actions{justify-content:stretch}.editor-actions button{flex:1}}
+</style>
 </head>
 <body>
 <div class="shell">
-<header class="report-header"><a href="../index.html">← Report cybercrime</a><div class="report-header-actions"><button type="button" data-save disabled>Save</button><a href="../index.html">Exit</a></div></header>
+<header class="report-header"><a href="../index.html">&lt;- Report cybercrime</a><div class="report-header-actions"><button type="button" data-save disabled>Save</button><a href="../index.html">Exit</a></div></header>
 <main>
-<p class="eyebrow">Reporting a cybercrime · Step 5 of 5</p>
+<p class="eyebrow">Reporting a cybercrime - Step 5 of 5</p>
 <h1>Review your report</h1>
 <div class="review-list">
-<div class="review-row">
-<span>
-<strong>Identifier</strong>
-<br>UPI ID: example@upi</span>
-<a class="button edit-button" href="report.html">Edit</a>
+<div class="review-row" data-section="identifier"><span class="review-display"><strong>Identifier</strong><br><span data-value>UPI ID: example@upi</span></span><div class="review-editor"><label>Identifier<input data-input type="text" aria-label="Identifier"></label><p class="editor-error" data-error></p><div class="editor-actions"><button type="button" data-cancel>Cancel</button><button type="button" class="primary" data-inline-save>Save</button></div></div><button class="button edit-button" type="button" data-edit>Edit</button></div>
+<div class="review-row" data-section="reason"><span class="review-display"><strong>Reason</strong><br><span data-value>Suspected financial fraud</span></span><div class="review-editor"><label>Reason<select data-input aria-label="Reason"><option>Suspected financial fraud</option><option>Account compromise</option><option>Impersonation</option><option>Suspicious activity</option><option>Other cybercrime</option></select></label><p class="editor-error" data-error></p><div class="editor-actions"><button type="button" data-cancel>Cancel</button><button type="button" class="primary" data-inline-save>Save</button></div></div><button class="button edit-button" type="button" data-edit>Edit</button></div>
+<div class="review-row" data-section="description"><span class="review-display"><strong>Description</strong><br><span data-value>Your incident description</span></span><div class="review-editor"><label>Description<textarea data-input aria-label="Description"></textarea></label><p class="editor-error" data-error></p><div class="editor-actions"><button type="button" data-cancel>Cancel</button><button type="button" class="primary" data-inline-save>Save</button></div></div><button class="button edit-button" type="button" data-edit>Edit</button></div>
+<div class="review-row" data-section="evidence"><span class="review-display"><strong>Evidence</strong><br><span data-value>3 files attached</span></span><div class="review-editor"><label>Add evidence<input data-input type="file" multiple aria-label="Add evidence"></label><p class="editor-error" data-error></p><div class="editor-actions"><button type="button" data-cancel>Cancel</button><button type="button" class="primary" data-inline-save>Save</button></div></div><button class="button edit-button" type="button" data-edit>Edit</button></div>
+<div class="review-row" data-section="contact"><span class="review-display"><strong>Contact</strong><br><span data-value>+91 XXXXXXX432</span></span><div class="review-editor"><label>Name<input data-input="name" type="text" aria-label="Name"></label><label>Mobile number<input data-input="phone" type="tel" inputmode="numeric" maxlength="10" aria-label="Mobile number"></label><p class="editor-error" data-error></p><div class="editor-actions"><button type="button" data-cancel>Cancel</button><button type="button" class="primary" data-inline-save>Save</button></div></div><button class="button edit-button" type="button" data-edit>Edit</button></div>
 </div>
-<div class="review-row">
-<span>
-<strong>Reason</strong>
-<br>Suspected financial fraud</span>
-<a class="button edit-button" href="report.html">Edit</a>
-</div>
-<div class="review-row">
-<span>
-<strong>Description</strong>
-<br>Your incident description</span>
-<a class="button edit-button" href="report-description.html">Edit</a>
-</div>
-<div class="review-row">
-<span>
-<strong>Evidence</strong>
-<br>3 files attached</span>
-<a class="button edit-button" href="report-evidence.html">Edit</a>
-</div>
-<div class="review-row">
-<span>
-<strong>Contact</strong>
-<br>+91 XXXXXXX432</span>
-<a class="button edit-button" href="report-details.html">Edit</a>
-</div>
-</div>
-<label>
-<input type="checkbox"> I confirm that the information provided is correct.</label>
-<div class="actions">
-<a class="button" href="report-details.html">Previous</a>
-<a class="button primary flow-next" href="submitted.html" aria-disabled="true">Submit report</a>
-</div>
+<label class="submit-confirmation"><input id="confirm" type="checkbox"> I confirm that the information provided is correct.</label>
+<div class="actions"><a class="button" href="report-details.html">Previous</a><a class="button primary flow-next" href="submitted.html" aria-disabled="true">Submit report</a></div>
 </main>
 <footer class="report-footer"><div class="help-title">Need Help?</div><div class="footer-brand"><span>NCRP</span><span>Government of India</span></div><div class="footer-credit">A Project made for "Build What Moves India" Hackathon by Varun Mayya</div></footer>
 </div>
+<script>
+(function () {
+  var stateKey = 'ncrp-report-data';
+  var state = JSON.parse(localStorage.getItem(stateKey) || 'null') || {identifierType:'UPI ID',identifier:'example@upi',reason:'Suspected financial fraud',description:'Your incident description',evidenceCount:3,name:'',phone:'+91 XXXXXXX432'};
+  var category = localStorage.getItem('ncrp-report-step-1-category');
+  var stepTwo = JSON.parse(localStorage.getItem('ncrp-report-step-2') || 'null');
+  var stepFour = JSON.parse(localStorage.getItem('ncrp-report-step-4') || 'null');
+  if (category) state.identifierType = category;
+  if (stepTwo) { state.reason = stepTwo[0] || state.reason; state.description = stepTwo[3] || state.description; }
+  if (stepFour) { state.name = stepFour.name || state.name; state.phone = stepFour.phone || state.phone; }
+  var editingRow = null;
+  var rows = document.querySelectorAll('[data-section]');
+  var headerSave = document.querySelector('[data-save]');
+  var submit = document.querySelector('.flow-next');
+  var confirm = document.getElementById('confirm');
+  function persist() { localStorage.setItem(stateKey, JSON.stringify(state)); }
+  function valueFor(section) { if (section === 'identifier') return (state.identifierType || 'Identifier') + ': ' + (state.identifier || 'Not provided'); if (section === 'reason') return state.reason || 'Not provided'; if (section === 'description') return state.description || 'Not provided'; if (section === 'evidence') return (state.evidenceCount || 0) + ' files attached'; return state.name ? state.name + ' - ' + state.phone : (state.phone || 'Not provided'); }
+  function render() { rows.forEach(function (row) { row.querySelector('[data-value]').textContent = valueFor(row.dataset.section); }); }
+  function updateSubmit() { headerSave.disabled = !confirm.checked; submit.setAttribute('aria-disabled', String(!confirm.checked || localStorage.getItem('ncrp-report-step-5-saved') !== '1')); }
+  function startEdit(row) { if (editingRow && editingRow !== row) { window.alert('Save or cancel the current edit first.'); return; } editingRow = row; row.classList.add('is-editing'); var section = row.dataset.section; if (section === 'identifier') row.querySelector('[data-input]').value = state.identifier || ''; else if (section === 'reason') row.querySelector('[data-input]').value = state.reason || ''; else if (section === 'description') row.querySelector('[data-input]').value = state.description || ''; else if (section === 'contact') { row.querySelector('[data-input="name"]').value = state.name || ''; row.querySelector('[data-input="phone"]').value = (state.phone || '').replace(/\D/g, '').slice(-10); } row.querySelector('[data-input]').focus(); }
+  function finishEdit(row, saveChanges) { var section = row.dataset.section; var error = row.querySelector('[data-error]'); if (!saveChanges) { row.classList.remove('is-editing'); error.classList.remove('visible'); editingRow = null; return; } var input = row.querySelector('[data-input]'); error.classList.remove('visible'); if (section === 'identifier' && !input.value.trim()) { error.textContent = 'Please enter an identifier.'; error.classList.add('visible'); return; } if (section === 'description' && !input.value.trim()) { error.textContent = 'Please enter a description.'; error.classList.add('visible'); return; } if (section === 'contact') { var name = row.querySelector('[data-input="name"]'); var phone = row.querySelector('[data-input="phone"]'); if (!name.value.trim()) { error.textContent = 'Please enter your name.'; error.classList.add('visible'); return; } if (!/^\d{10}$/.test(phone.value.trim())) { error.textContent = 'Please enter a valid 10 digit mobile number.'; error.classList.add('visible'); return; } state.name = name.value.trim(); state.phone = '+91 ' + phone.value.trim(); } else if (section === 'identifier') state.identifier = input.value.trim(); else if (section === 'reason') state.reason = input.value; else if (section === 'description') state.description = input.value.trim(); else if (section === 'evidence' && input.files.length) state.evidenceCount = (state.evidenceCount || 0) + input.files.length; persist(); row.classList.remove('is-editing'); editingRow = null; render(); }
+  rows.forEach(function (row) { row.querySelector('[data-edit]').addEventListener('click', function () { startEdit(row); }); row.querySelector('[data-cancel]').addEventListener('click', function () { finishEdit(row, false); }); row.querySelector('[data-inline-save]').addEventListener('click', function () { finishEdit(row, true); }); });
+  document.addEventListener('keydown', function (event) { if (event.key === 'Escape' && editingRow) finishEdit(editingRow, false); });
+  confirm.addEventListener('change', function () { localStorage.removeItem('ncrp-report-step-5-saved'); updateSubmit(); });
+  headerSave.addEventListener('click', function () { persist(); localStorage.setItem('ncrp-report-step-5-saved', '1'); updateSubmit(); });
+  submit.addEventListener('click', function (event) { if (submit.getAttribute('aria-disabled') === 'true') event.preventDefault(); else { persist(); localStorage.setItem('ncrp-report-submitted-data', JSON.stringify(state)); } });
+  render(); updateSubmit();
+}());
+</script>
 </body>
-<script>(function(){var key='ncrp-report-step-5',save=document.querySelector('[data-save]'),next=document.querySelector('.flow-next'),confirm=document.querySelector('input[type=checkbox]');
-function update(){var ready=!!confirm.checked,saved=localStorage.getItem(key+'-saved')==='1';save.disabled=!ready;next.setAttribute('aria-disabled',String(!ready||!saved))}confirm.addEventListener('change',function(){localStorage.removeItem(key+'-saved');update()});save.addEventListener('click',function(){localStorage.setItem(key+'-confirmed','true');localStorage.setItem(key+'-saved','1');update()});next.addEventListener('click',function(event){if(next.getAttribute('aria-disabled')==='true')event.preventDefault()});update()}())</script>
 </html>
