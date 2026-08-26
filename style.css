@@ -1,3 +1,16 @@
+ .category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px;margin:24px 0 34px}
+.category-option{min-height:64px;padding:19px;border:1px solid #82919c;border-radius:9px;color:var(--ink);display:flex;align-items:center;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease}
+.category-option:hover{transform:translateY(-2px);border-color:var(--blue);background:#f8fcfe;box-shadow:0 8px 18px rgba(23,42,59,.1)}
+.review-list{border:1px solid var(--line);border-radius:9px;background:var(--wash);padding:4px 20px;margin:20px 0 24px}
+.review-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 0;border-bottom:1px solid var(--line)}
+.review-row:last-child{border-bottom:0}.review-row span{flex:1}.edit-button{padding:6px 12px;font-size:13px}.lead{color:var(--muted);font-size:17px}
+@media(max-width:720px){.category-grid{grid-template-columns:1fr}.review-list{padding:4px 14px}.review-row{align-items:flex-start}}
+@keyframes current-status-pulse{0%,100%{box-shadow:0 0 0 3px #dcecf5,0 0 0 0 rgba(7,90,158,.38)}50%{box-shadow:0 0 0 3px #dcecf5,0 0 0 9px rgba(7,90,158,0)}}
+.current-status{color:var(--blue);font-weight:700;margin:0 0 22px}
+.timeline:before{content:"Current status: Under investigation";display:block;color:var(--blue);font-weight:700;margin:0 0 22px}
+.timeline .event:first-child:before{animation:current-status-pulse 2s ease-in-out infinite;background:var(--blue)!important;box-shadow:0 0 0 3px #dcecf5,0 0 10px rgba(7,90,158,.5)!important;z-index:1}
+.casecols>section:first-child .case:first-of-type .status{font-size:0}
+.casecols>section:first-child .case:first-of-type .status:after{content:"Under investigation";font-size:15px}
  .account-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 nav a{font-size:15px!important;font-weight:700!important;transition:background .2s ease,color .2s ease,transform .2s ease}
 nav a:nth-child(2),nav a:nth-child(4){border-left:1px solid var(--line);border-radius:0 5px 5px 0;margin-left:4px;padding-left:14px}
