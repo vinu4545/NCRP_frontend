@@ -1,0 +1,8 @@
+{
+  "encounterDate":"",
+  "encounterMethod":"WhatsApp",
+  "additionalDetails":"",
+  "previousUrl":"report-suspect.html",
+  "submitUrl":"suspect-result.html",
+  "encounterMethods":["Email","Phone call","WhatsApp","SMS","Website","Social media","Payment"]
+}

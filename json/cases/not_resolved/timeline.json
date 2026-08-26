@@ -1,0 +1,7 @@
+{
+  "events":[
+    {"eventDate":"22 August 2026","eventTime":"","eventTitle":"Complaint registered","eventDescription":"Your complaint was registered.","assignedUnit":null,"eventLink":null,"eventLinkLabel":null,"isCurrent":false},
+    {"eventDate":"24 August 2026","eventTime":"","eventTitle":"Complaint assigned","eventDescription":"Your complaint has been assigned.","assignedUnit":"Cyber Crime Unit","eventLink":null,"eventLinkLabel":null,"isCurrent":false},
+    {"eventDate":"24 August 2026","eventTime":"","eventTitle":"Additional evidence requested","eventDescription":"Please upload the original bank statement.","assignedUnit":"Local Police Station","eventLink":"evidence.html","eventLinkLabel":"View evidence","isCurrent":true}
+  ]
+}

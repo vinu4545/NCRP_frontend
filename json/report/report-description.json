@@ -1,0 +1,5 @@
+{
+  "pageTitle":"Report description | NCRP","stepNumber":2,"totalSteps":5,"heading":"Tell us a little more","reportingReason":"Suspected financial fraud","encounterDate":"","encounterMethod":"WhatsApp","incidentDescription":"","previousUrl":"report.html","nextUrl":"report-evidence.html","saveStatus":"","nextEnabled":false,
+  "reportingReasonOptions":["Suspected financial fraud","Account compromise","Impersonation","Suspicious activity","Other cybercrime"],
+  "encounterMethodOptions":["WhatsApp","Email","Phone call","SMS","Website","Social media","Payment","Other"]
+}

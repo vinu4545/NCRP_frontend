@@ -1,0 +1,7 @@
+{
+  "identifierType":"UPI ID",
+  "identifierValue":"example@upi",
+  "buttonLabel":"Check Identifier",
+  "buttonUrl":"suspect-result.html",
+  "options":["Mobile number","UPI ID","Website URL","Bank account","Email address"]
+}

@@ -1,0 +1,10 @@
+{
+  "activeCases": [
+    {"caseId":"CYB-20481","caseCategory":"Financial fraud","caseStatus":"Evidence requested","actionLabel":"Continue","actionUrl":"track.html?case=CYB-20481"},
+    {"caseId":"CYB-20492","caseCategory":"Account takeover","caseStatus":"Under investigation","actionLabel":"View case","actionUrl":"track.html?case=CYB-20492"}
+  ],
+  "pastCases": [
+    {"caseId":"CYB-17481","caseCategory":"UPI fraud","caseStatus":"Resolved","actionLabel":"View outcome","actionUrl":"track.html?case=CYB-17481"},
+    {"caseId":"CYB-14492","caseCategory":"Impersonation","caseStatus":"Closed","actionLabel":"View case","actionUrl":"track.html?case=CYB-14492"}
+  ]
+}

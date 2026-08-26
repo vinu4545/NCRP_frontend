@@ -1,0 +1,7 @@
+{
+  "notifications":[
+    {"notificationType":"action","notificationMessage":"Upload bank statement for case CYB-20481.","notificationTime":"Today","relatedCaseId":"CYB-20481","actionLabel":"Upload","actionUrl":"../cases/not_resolved/evidence.html","requiresAction":true},
+    {"notificationType":"case update","notificationMessage":"Case CYB-20481 was assigned to Cyber Crime Unit.","notificationDate":"24 Aug","relatedCaseId":"CYB-20481","actionLabel":"View case","actionUrl":"../cases/track.html?case=CYB-20481","requiresAction":false},
+    {"notificationType":"registration","notificationMessage":"Complaint registered","notificationDate":"Yesterday","relatedCaseId":"CYB-20492","actionLabel":"View case","actionUrl":"../cases/track.html?case=CYB-20492","requiresAction":false}
+  ]
+}

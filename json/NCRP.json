@@ -1,0 +1,14 @@
+{
+  "currentPage": "home",
+  "currentFlow": "crime",
+  "currentStep": 0,
+  "draft": {"identifierType":"UPI ID","reason":"Suspected financial fraud","encounterMethod":"WhatsApp","encounterDate":"","description":"","evidence":[]},
+  "contact": {"name":"","mobileNumber":"","otp":"","otpVerified":false},
+  "case": {"caseId":"CYB-20481","caseType":"Financial fraud","caseStatus":"Evidence requested","active":true},
+  "profile": {"fullName":"Rahul Sharma","mobileNumber":"+91 XXXXX XXXXX","email":"rahul.sharma123@gmail.com","age":"XX","gender":"M/F","address":"ABC Area, XYZ"},
+  "notifications": [
+    {"notificationTitle":"Action required","notificationMessage":"Upload bank statement","relatedCaseId":"CYB-20481","notificationDate":"Today"},
+    {"notificationTitle":"Case update","notificationMessage":"Your complaint was assigned.","relatedCaseId":"CYB-20481","notificationDate":"Today"},
+    {"notificationTitle":"Complaint registered","notificationMessage":"Complaint registered","relatedCaseId":"CYB-20492","notificationDate":"Yesterday"}
+  ]
+}

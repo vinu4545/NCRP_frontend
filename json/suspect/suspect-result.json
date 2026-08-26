@@ -1,0 +1,11 @@
+{
+  "identifierValue":"example@upi",
+  "identifierType":"UPI ID",
+  "reportsFound":true,
+  "resultTitle":"Reports found",
+  "resultMessage":"Reported before does not establish wrongdoing. Take care before making any payment.",
+  "reportCount":3,
+  "riskLevel":"",
+  "reportIdentifierUrl":"report-suspect.html",
+  "returnHomeUrl":"../index.html"
+}
