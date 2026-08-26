@@ -8,6 +8,7 @@
 <style>
 .phone-error{display:none;color:#bf3f3f;font-size:14px;margin:-8px 0 14px}.phone-error.visible{display:block}
 .otp-modal{display:none;position:fixed;inset:0;z-index:10;align-items:center;justify-content:center;padding:20px;background:rgba(23,42,59,.36)}.otp-modal.visible{display:flex}.otp-dialog{width:min(420px,100%);padding:28px;border:1px solid var(--line);border-radius:10px;background:#fff;box-shadow:0 18px 44px rgba(23,42,59,.2);text-align:center}.otp-dialog h2{margin-top:0}.otp-code{display:block;margin:18px 0;color:var(--blue);font-size:32px;letter-spacing:6px}.otp-expiry{color:var(--muted);margin-bottom:20px}
+.send-otp-button{background:#16834b!important;border-color:#16834b!important;color:#fff!important}.send-otp-button:hover{background:#116b3d!important;border-color:#116b3d!important;color:#fff!important}.verify-otp-button{background:#bf3f3f!important;border-color:#bf3f3f!important;color:#fff!important}.verify-otp-button:hover{background:#9f3030!important;border-color:#9f3030!important;color:#fff!important}.verify-otp-button.verified{background:#16834b!important;border-color:#16834b!important;color:#fff!important}.verify-otp-button.verified:hover{background:#116b3d!important;border-color:#116b3d!important;color:#fff!important}.otp-status{display:none;font-size:14px;margin:10px 0;color:#bf3f3f}.otp-status.visible{display:block}.otp-status.success{color:#16834b}
 </style>
 </head>
 <body>
@@ -20,12 +21,13 @@
 <label>Name<input type="text"></label>
 <label>Mobile number<input id="phone-number" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 digit mobile number" aria-describedby="phone-error"></label>
 <p id="phone-error" class="phone-error" role="alert">Invalid phone number</p>
-<button id="send-otp" type="button">Send OTP</button>
-<label>Enter OTP<input type="text" inputmode="numeric" maxlength="6"></label>
-<button type="button">Verify OTP</button>
+<button id="send-otp" class="send-otp-button" type="button">Send OTP</button>
+<label>Enter OTP<input id="otp-input" type="text" inputmode="numeric" maxlength="6"></label>
+<button id="verify-otp" class="verify-otp-button" type="button">Verify OTP</button>
+<p id="otp-status" class="otp-status" role="status"></p>
 <div class="actions"><a class="button" href="report-evidence.html">Previous</a><a class="button primary" href="report-review.html">Next</a></div>
 </main>
-<footer><div><strong>Citizen services</strong>Report cybercrime<br>Check suspicious identifier<br>Track complaint</div><div><strong>Help</strong>FAQs<br>How it works<br>Cyber safety</div><div><strong>Information</strong>About NCRP<br>Privacy<br>Terms</div><div><strong>Government resources</strong>Official cybercrime resources<br>Emergency information</div><div class="brandline"><span>NCRP</span><span>Government of India</span></div></footer>
+<footer><div><strong>Citizen services</strong>Report cybercrime<br>Check suspicious identifier<br>Track complaint</div><div><strong>Help</strong>FAQs<br>How it works<br>Cyber safety</div><div><strong>Information</strong>About NCRP<br>Privacy<br>Terms</div><div><strong>Government resources</strong>Official cybercrime resources<br>Emergency information</div><div class="footer-credit">A Project made for "Build What Moves India" Hackathon by Varun Mayya</div><div class="brandline"><span>NCRP</span><span>Government of India</span></div></footer>
 </div>
 <div id="otp-modal" class="otp-modal" role="dialog" aria-modal="true" aria-labelledby="otp-title">
 <div class="otp-dialog"><h2 id="otp-title">OTP generated</h2><p>Your verification code is:</p><strong id="otp-code" class="otp-code"></strong><p id="otp-expiry" class="otp-expiry">Valid for 5 minutes</p><button id="close-otp" class="primary" type="button">Close</button></div>
@@ -39,6 +41,11 @@
   var codeOutput = document.getElementById('otp-code');
   var expiryOutput = document.getElementById('otp-expiry');
   var closeButton = document.getElementById('close-otp');
+  var otpInput = document.getElementById('otp-input');
+  var verifyButton = document.getElementById('verify-otp');
+  var status = document.getElementById('otp-status');
+  var generatedOtp = '';
+  var expiresAt = 0;
   var expiryTimer;
 
   function closeModal() {
@@ -57,9 +64,13 @@
 
     error.classList.remove('visible');
     phone.removeAttribute('aria-invalid');
-    var otp = String(Math.floor(100000 + Math.random() * 900000));
-    var expiresAt = Date.now() + 300000;
-    codeOutput.textContent = otp;
+    generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+    expiresAt = Date.now() + 300000;
+    codeOutput.textContent = generatedOtp;
+    verifyButton.classList.remove('verified');
+    status.className = 'otp-status';
+    status.textContent = '';
+    window.clearInterval(expiryTimer);
     modal.classList.add('visible');
     closeButton.focus();
 
@@ -69,6 +80,19 @@
       expiryOutput.textContent = seconds ? 'Valid for ' + Math.ceil(seconds / 60) + ' minutes' : 'This OTP has expired';
       if (!remaining) window.clearInterval(expiryTimer);
     }, 1000);
+  });
+
+  verifyButton.addEventListener('click', function () {
+    var enteredOtp = otpInput.value.trim();
+    status.className = 'otp-status visible';
+    verifyButton.classList.remove('verified');
+    if (!generatedOtp || Date.now() >= expiresAt || enteredOtp !== generatedOtp) {
+      status.textContent = Date.now() >= expiresAt && generatedOtp ? 'This OTP has expired. Please generate a new OTP.' : 'Incorrect OTP';
+      return;
+    }
+    verifyButton.classList.add('verified');
+    status.className = 'otp-status visible success';
+    status.textContent = 'OTP verified successfully';
   });
 
   phone.addEventListener('input', function () {
