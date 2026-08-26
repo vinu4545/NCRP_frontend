@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Report Details | NCRP</title>
 <link rel="stylesheet" href="../../style.css">
+<style>.report-header{display:flex;align-items:center;justify-content:space-between;padding:16px 42px;border-bottom:2px solid var(--ink)}.report-header a{font-weight:700}.report-header-actions{display:flex;gap:28px;align-items:center}.report-header button{border:0;background:none;padding:0;font-weight:700}.report-header button:disabled{color:#9aa7af;cursor:not-allowed}.report-footer{display:block!important;text-align:center;border-top:2px solid var(--ink);padding:20px 28px!important}.help-title{font-weight:700;font-size:18px;margin-bottom:12px}.footer-brand{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;font-weight:700}.report-footer .footer-credit{border:0;padding-top:12px;margin-top:12px}.flow-next[aria-disabled="true"]{opacity:.45;cursor:not-allowed}@media(max-width:650px){.report-header{padding:16px 22px}.report-header-actions{gap:16px}.report-footer .footer-brand{font-size:14px}}</style>
 <style>
 .phone-error{display:none;color:#bf3f3f;font-size:14px;margin:-8px 0 14px}.phone-error.visible{display:block}
 .otp-modal{display:none;position:fixed;inset:0;z-index:10;align-items:center;justify-content:center;padding:20px;background:rgba(23,42,59,.36)}.otp-modal.visible{display:flex}.otp-dialog{width:min(420px,100%);padding:28px;border:1px solid var(--line);border-radius:10px;background:#fff;box-shadow:0 18px 44px rgba(23,42,59,.2);text-align:center}.otp-dialog h2{margin-top:0}.otp-code{display:block;margin:18px 0;color:var(--blue);font-size:32px;letter-spacing:6px}.otp-expiry{color:var(--muted);margin-bottom:20px}
@@ -13,24 +14,38 @@
 </head>
 <body>
 <div class="shell">
-<header><a class="brand" href="../index.html"><strong>National Cybercrime</strong>Reporting Portal - NCRP</a><nav><a href="../index.html">Home</a><a href="report.html" aria-current="page">Report</a><a href="../cases/cases.html">My Cases</a><a href="../notifications/notifications.html">Notifications</a><a href="../profile/profile.html">Profile</a></nav></header>
+<header class="report-header"><a href="../index.html">← Report cybercrime</a><div class="report-header-actions"><button type="button" data-save disabled>Save</button><a href="../index.html">Exit</a></div></header>
 <main>
 <p class="eyebrow">Reporting a cybercrime · Step 4 of 5</p>
 <h1>Your report is almost ready.</h1>
 <p class="lead">This helps us contact you about your report.</p>
-<label>Name<input type="text"></label>
-<label>Mobile number<input id="phone-number" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 digit mobile number" aria-describedby="phone-error"></label>
+<label>Name<input type="text">
+</label>
+<label>Mobile number<input id="phone-number" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 digit mobile number" aria-describedby="phone-error">
+</label>
 <p id="phone-error" class="phone-error" role="alert">Invalid phone number</p>
 <button id="send-otp" class="send-otp-button" type="button">Send OTP</button>
-<label>Enter OTP<input id="otp-input" type="text" inputmode="numeric" maxlength="6"></label>
+<label>Enter OTP<input id="otp-input" type="text" inputmode="numeric" maxlength="6">
+</label>
 <button id="verify-otp" class="verify-otp-button" type="button">Verify OTP</button>
-<p id="otp-status" class="otp-status" role="status"></p>
-<div class="actions"><a class="button" href="report-evidence.html">Previous</a><a class="button primary" href="report-review.html">Next</a></div>
+<p id="otp-status" class="otp-status" role="status">
+</p>
+<div class="actions">
+<a class="button" href="report-evidence.html">Previous</a>
+<a class="button primary flow-next" href="report-review.html" aria-disabled="true">Next</a>
+</div>
 </main>
-<footer><div><strong>Citizen services</strong>Report cybercrime<br>Check suspicious identifier<br>Track complaint</div><div><strong>Help</strong>FAQs<br>How it works<br>Cyber safety</div><div><strong>Information</strong>About NCRP<br>Privacy<br>Terms</div><div><strong>Government resources</strong>Official cybercrime resources<br>Emergency information</div><div class="footer-credit">A Project made for "Build What Moves India" Hackathon by Varun Mayya</div><div class="brandline"><span>NCRP</span><span>Government of India</span></div></footer>
+<footer class="report-footer"><div class="help-title">Need Help?</div><div class="footer-brand"><span>NCRP</span><span>Government of India</span></div><div class="footer-credit">A Project made for "Build What Moves India" Hackathon by Varun Mayya</div></footer>
 </div>
 <div id="otp-modal" class="otp-modal" role="dialog" aria-modal="true" aria-labelledby="otp-title">
-<div class="otp-dialog"><h2 id="otp-title">OTP generated</h2><p>Your verification code is:</p><strong id="otp-code" class="otp-code"></strong><p id="otp-expiry" class="otp-expiry">Valid for 5 minutes</p><button id="close-otp" class="primary" type="button">Close</button></div>
+<div class="otp-dialog">
+<h2 id="otp-title">OTP generated</h2>
+<p>Your verification code is:</p>
+<strong id="otp-code" class="otp-code">
+</strong>
+<p id="otp-expiry" class="otp-expiry">Valid for 5 minutes</p>
+<button id="close-otp" class="primary" type="button">Close</button>
+</div>
 </div>
 <script>
 (function () {
@@ -106,4 +121,6 @@
 }());
 </script>
 </body>
+<script>(function(){var key='ncrp-report-step-4',save=document.querySelector('[data-save]'),next=document.querySelector('.flow-next'),name=document.querySelector('input[type=text]:not(#otp-input)'),phone=document.querySelector('#phone-number'),otp=document.querySelector('#otp-input'),verify=document.querySelector('#verify-otp');
+function valid(){return !!(name&&name.value.trim()&&phone&&/^\d{10}$/.test(phone.value.trim())&&verify&&verify.classList.contains('verified')&&otp&&otp.value.trim())}function update(){var ready=valid(),saved=localStorage.getItem(key+'-saved')==='1';save.disabled=!ready;next.setAttribute('aria-disabled',String(!ready||!saved))}document.addEventListener('input',function(){localStorage.removeItem(key+'-saved');update()});document.addEventListener('click',function(event){if(event.target===verify||event.target===save){window.setTimeout(update,0)}});save.addEventListener('click',function(){localStorage.setItem(key,JSON.stringify({name:name.value,phone:phone.value,otp:otp.value}));localStorage.setItem(key+'-saved','1');update()});next.addEventListener('click',function(event){if(next.getAttribute('aria-disabled')==='true')event.preventDefault()});update()}())</script>
 </html>
