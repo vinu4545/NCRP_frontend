@@ -1,4 +1,4 @@
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000').replace(/\/$/, '')
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'https://ncrp-backend.onrender.com').replace(/\/$/, '')
 export const TOKEN_KEY = 'ncrp_token'
 
 export class ApiError extends Error {
