@@ -1,8 +1,0 @@
-{
-  "identifierType":"UPI ID",
-  "identifierValue":"",
-  "reportingReason":"Suspected financial fraud",
-  "nextUrl":"suspect-details.html",
-  "identifierOptions":["Mobile number","UPI ID","Website URL","Bank account"],
-  "reportingReasons":["Suspected financial fraud","Impersonation","Suspicious payment request","Malicious activity"]
-}

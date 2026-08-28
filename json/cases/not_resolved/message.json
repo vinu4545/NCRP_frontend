@@ -1,8 +1,0 @@
-{
-  "messageCategory":"Police / Case updates",
-  "messages":[
-    {"messageDate":"24 Aug","messageTitle":"Additional evidence requested","messageBody":"Please upload the original bank statement.","messageType":"request","responseLabel":"Respond","responseUrl":"evidence.html"},
-    {"messageDate":"24 Aug","messageTitle":"Complaint assigned","messageBody":"Your complaint has been assigned.","messageType":"update","responseLabel":null,"responseUrl":null},
-    {"messageDate":"22 Aug","messageTitle":"Complaint registered","messageBody":"Your complaint was registered.","messageType":"update","responseLabel":null,"responseUrl":null}
-  ]
-}

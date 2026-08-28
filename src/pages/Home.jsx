@@ -1,0 +1,3 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+export default function Home() { return <div className="center"><p className="eyebrow">NCRP CITIZEN SERVICES</p><h1>What do you need help with?</h1><p className="lead">Report cybercrime, check a suspicious identifier, or track an existing complaint.</p><div className="choices"><Link className="choice" to="/report"><strong>Report Cybercrime</strong><small>Something happened to me</small></Link><Link className="choice" to="/suspect"><strong>Check / Report Suspect</strong><small>Check or report a suspicious identifier</small></Link><Link className="choice" to="/cases"><strong>Track Existing Report</strong><small>View status, evidence requests, and updates</small></Link></div></div> }

@@ -1,9 +1,0 @@
-{
-  "pageTitle":"Suspicious identifier | NCRP",
-  "eyebrow":"NCRP citizen services",
-  "heading":"What do you want to do?",
-  "services":[
-    {"label":"Check a suspicious identifier","description":"See whether it has been reported before.","destination":"check-suspect.html"},
-    {"label":"Report a suspicious identifier","description":"Tell us about a number, UPI ID, account, URL, etc.","destination":"report-suspect.html"}
-  ]
-}
