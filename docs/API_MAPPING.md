@@ -118,3 +118,199 @@ Tested against `http://localhost:8000` using the demo phone/OTP and a bearer tok
 | Notification read-one, case detail/timeline/grievance, suspect detail | Not fully exercised in this sweep; routes exist in OpenAPI, but should be covered by backend integration tests with fixture IDs |
 
 The live tests created anonymous report/suspect drafts and one demo suspect report as test data. No real user data or uploaded file was transmitted.
+
+## Admin case preview endpoints
+
+The frontend includes a development-only, unauthenticated admin preview at `/admin/cases/{case_id}`. The “Visit admin preview” link is shown on Case Home so the team can exercise case progression and evidence-request UI before an admin authentication system exists. These endpoints must be protected or disabled outside the POC environment.
+
+`GET /api/v1/admin/cases/{case_id}`
+
+Response:
+```json
+{
+  "case": {
+    "id": "<case_uuid>",
+    "caseNumber": "NCRP-2026-000001",
+    "category": "financial_fraud",
+    "status": "UNDER_REVIEW",
+    "submittedAt": "<ISO-8601>"
+  },
+  "submitted": [
+    {
+      "id": "<evidence_uuid>",
+      "kind": "file",
+      "filename": "payment.png",
+      "tag": "Payment Receipt",
+      "description": "Original receipt",
+      "createdAt": "<ISO-8601>"
+    }
+  ],
+  "requested": [
+    {
+      "id": "<request_uuid>",
+      "tag": "Bank Statement",
+      "description": "Upload the statement covering the disputed transaction.",
+      "status": "OPEN",
+      "createdAt": "<ISO-8601>"
+    }
+  ]
+}
+```
+
+`PATCH /api/v1/admin/cases/{case_id}/status`
+
+Request:
+```json
+{ "status": "UNDER_REVIEW" }
+```
+
+Allowed statuses should be defined by the backend state machine, for example `SUBMITTED`, `UNDER_REVIEW`, `IN_PROGRESS`, `ACTION_REQUIRED`, `RESOLVED`, and `CLOSED`. Response:
+```json
+{ "success": true, "case": { "id": "<case_uuid>", "status": "UNDER_REVIEW" }, "event": { "type": "STATUS_CHANGED", "createdAt": "<ISO-8601>" } }
+```
+
+`POST /api/v1/admin/cases/{case_id}/evidence-requests`
+
+Request:
+```json
+{ "tag": "Bank Statement", "description": "Upload the statement covering the disputed transaction." }
+```
+
+Response:
+```json
+{ "id": "<request_uuid>", "caseId": "<case_uuid>", "tag": "Bank Statement", "description": "Upload the statement covering the disputed transaction.", "status": "OPEN", "createdAt": "<ISO-8601>" }
+```
+
+Backend requirements:
+
+- Validate that the case exists and is eligible for status changes or evidence requests.
+- Create a timeline event and notification when status changes.
+- Create a citizen-visible open evidence request and include it in `GET /api/v1/cases/{case_id}/evidence`.
+- Keep requested evidence scoped to the case owner; never expose internal admin data.
+- Return `404` for an unknown case and `422` for an invalid status or incomplete evidence request.
+- Add admin authentication/authorization before using these routes outside local development. The current frontend intentionally sends no admin credentials for the POC preview.
+
+## Case Evidence page
+
+`GET /api/v1/cases/{case_id}/evidence` drives `/cases/{case_id}/evidence`. The response must remain:
+```json
+{
+  "submitted": [
+    {
+      "id": "<evidence_uuid>",
+      "kind": "file",
+      "filename": "payment.png",
+      "url": null,
+      "storagePath": "<internal-storage-path>",
+      "tag": "Payment Receipt",
+      "description": "Original receipt",
+      "createdAt": "<ISO-8601>"
+    }
+  ],
+  "requested": [
+    {
+      "id": "<request_uuid>",
+      "tag": "Bank Statement",
+      "description": "Upload the statement covering the disputed transaction.",
+      "status": "OPEN",
+      "createdAt": "<ISO-8601>"
+    }
+  ]
+}
+```
+
+The frontend renders submitted evidence in a grid using `filename` for files, `url` for URL evidence, plus `tag`, `description`, and type. It renders open requests as upload cards. `storagePath` is never shown to the citizen.
+
+### Case evidence upload
+
+The frontend assumes the following endpoint for fulfilling an open request:
+
+`POST /api/v1/cases/{case_id}/evidence` (authenticated case owner)
+
+Request after the signed binary upload completes:
+```json
+{
+  "kind": "file",
+  "storagePath": "<storagePath from upload-url>",
+  "requestId": "<request_uuid>",
+  "tag": "Bank Statement",
+  "description": "Statement for August 2026"
+}
+```
+
+Response:
+```json
+{
+  "id": "<evidence_uuid>",
+  "caseId": "<case_uuid>",
+  "requestId": "<request_uuid>",
+  "kind": "file",
+  "filename": "statement.pdf",
+  "storagePath": "<internal-storage-path>",
+  "tag": "Bank Statement",
+  "description": "Statement for August 2026",
+  "createdAt": "<ISO-8601>"
+}
+```
+
+On success, the backend should mark the matching request `FULFILLED` (or return an equivalent request state), create a timeline event, and notify the investigating unit. Validate case ownership, request ownership, request status, storage-path ownership, file metadata, and duplicate fulfillment. Return `404` for an unknown case/request, `403` for another user’s case, `409` when a request is already fulfilled, and `422` for invalid metadata.
+
+## Case Details page
+
+`GET /api/v1/cases/{case_id}/details` (authenticated case owner)
+
+This endpoint drives `/cases/{case_id}/details` and should return the case header, every active questionnaire answer, and a structured report suitable for presentation and PDF generation:
+```json
+{
+  "case": {
+    "id": "<case_uuid>",
+    "caseNumber": "NCRP-2026-000001",
+    "category": "financial_fraud",
+    "status": "UNDER_REVIEW",
+    "submittedAt": "<ISO-8601>"
+  },
+  "answers": {
+    "incident_type": "financial_fraud",
+    "financial_method": "upi",
+    "transaction_amount": 45000,
+    "incident_description": "<citizen answer>"
+  },
+  "structuredReport": {
+    "title": "Cybercrime complaint report",
+    "sections": [
+      {
+        "id": "incident",
+        "title": "Incident details",
+        "items": [
+          { "label": "Incident type", "value": "Financial fraud" },
+          { "label": "Transaction amount", "value": "₹45,000" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+The frontend renders all keys in `answers` dynamically and does not assume a fixed V2 tree branch. `structuredReport.sections[].items[]` is the preferred generated-report format. Each item may contain a string, number, boolean, array, or nested object value; the UI formats those values safely without exposing internal storage data.
+
+`GET /api/v1/cases/{case_id}/report.pdf` (authenticated case owner)
+
+Response: `200 OK`, `Content-Type: application/pdf`, with `Content-Disposition: attachment; filename="NCRP-2026-000001.pdf"`.
+
+The Download report PDF button calls this endpoint with the bearer token and downloads the binary response. The backend should generate the PDF from the same authoritative case data, include case ID/number, status, submitted timestamp, all active answers, structured report sections, and evidence summary, and return `404` for an unknown case or `403` when the case is not owned by the current user. Do not return internal `storagePath` values in the citizen-facing PDF.
+
+## Case timeline and messages
+
+`GET /api/v1/cases/{case_id}/timeline` returns detailed citizen-safe events:
+```json
+{ "events": [{ "id": "<uuid>", "type": "EVIDENCE_REQUESTED", "title": "Evidence requested", "description": "The investigating unit requested your original bank statement.", "stage": "INVESTIGATION", "actor": "Cyber Crime Unit", "approvedBy": null, "forwardedBy": null, "evidenceRequestId": "<request_uuid or null>", "createdAt": "<ISO-8601>" }] }
+```
+
+`GET /api/v1/cases/{case_id}/messages` returns `{ "messages": [{ "id": "<uuid>", "type": "CASE_UPDATE", "title": "Your complaint has been assigned", "message": "The investigating unit is reviewing your complaint.", "sender": "Cyber Crime Unit", "createdAt": "<ISO-8601>" }] }`. Timeline events should be ordered oldest-first; messages may include assignment, evidence, resolution, and other citizen-safe case updates. Internal notes must not be exposed.
+
+The local admin preview assumes:
+
+- `POST /api/v1/admin/cases/{case_id}/timeline` with `{ "type": "EVIDENCE_REQUESTED", "title": "Evidence requested", "description": "<text>", "stage": "INVESTIGATION", "actor": "Cyber Crime Unit", "approvedBy": null, "forwardedBy": null, "evidenceRequestId": "<uuid or null>" }`; return the created timeline event with `id` and `createdAt`.
+- `POST /api/v1/admin/cases/{case_id}/messages` with `{ "type": "CASE_UPDATE", "title": "<title>", "message": "<citizen-safe message>" }`; return the created message with `id`, `sender`, and `createdAt`.
+
+Both endpoints must validate the case and fields, persist durable records, and return `404` for an unknown case or `422` for invalid input. Timeline evidence references must belong to the same case. Add admin authentication/authorization before production; the current admin preview intentionally uses no credentials.
